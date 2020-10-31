@@ -3,26 +3,56 @@
 <head>
 	<meta charset="utf-8">
 	<style>
-	
-	</style>
+		.inputs
+		{
+			padding-bottom: 1em;
+		}
+		
+		.textfield
+		{
+			padding-bottom: 1em;
+		}
+		
+		table
+		{
+			background-color: #ffffff;
+			border-collapse: collapse;
+			border-width: 1px;
+			border-color: #000000;
+			border-style: solid;
+			color: #000000;
+		}
+		
+		tr:nth-child(even) { background-color: #cccccc; }
+		
+		td
+		{
+			border-width: 1px;
+			border-color: #000000;
+			border-style: solid;
+			padding: 5px;
+		}
+</style>
 </head>
 <body>
 
 <h1>Werwolf-Rollenverteiler</h1>
 
-<div>
-<label for="nameField">Namen: </label>
-<input type="text" name="names" id="nameField" value="Namen, mit, Komma, trennen" />
+<div class="inputs">
+<div class="textfield">
+<label for="nameField" class="textlabel">Namen: </label>
+<input type="text" name="names" id="nameField" size="50" value="Namen, mit, Komma, trennen" />
 </div>
 
-<div>
-<label for="nameField">Rollen: </label>
-<input type="roleField" name="roles" id="roleField" value="Wolf, und, so, weiter" />
+<div class="textfield">
+<label for="nameField" class="textlabel">Rollen: </label>
+<input type="roleField" name="roles" id="roleField" size="50" value="Wolf, und, so, weiter" />
 </div>
 
 <div>
 <input id="assign" type="button" value="Würfeln wirs aus!" onclick="assignRoles();" />
 <input id="delete" type="button" value="Verteilung löschen" onclick="clearTable();" />
+</div>
 </div>
 
 <script>

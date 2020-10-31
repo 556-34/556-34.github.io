@@ -1,13 +1,120 @@
 <!DOCTYPE html>
 <html>
+<head>
+	<meta charset="utf-8">
+	<style>
+	
+	</style>
+</head>
 <body>
 
-<form oninput="x.value=parseInt(a.value)+parseInt(b.value)">
-<input type="range" id="a" value="50">
-+<input type="number" id="b" value="25">
-=<output name="x" for="a b"></output>
-</form>
+<h1>Werwolf-Rollenverteiler</h1>
+
+<div>
+<label for="nameField">Namen: </label>
+<input type="text" name="names" id="nameField" value="Namen, mit, Komma, trennen" />
+</div>
+
+<div>
+<label for="nameField">Rollen: </label>
+<input type="roleField" name="roles" id="roleField" value="Wolf, und, so, weiter" />
+</div>
+
+<div>
+<input id="assign" type="button" value="Würfeln wirs aus!" onclick="assignRoles();" />
+<input id="delete" type="button" value="Verteilung löschen" onclick="clearTable();" />
+</div>
+
+<script>
+document.addEventListener("keyup", function(e) {
+    if (e.keyCode === 13) {
+      document.getElementById("assign").click();
+    }
+  });
+
+function assignRoles() {
+	let nameCSV = document.getElementById("nameField").value;
+	let roleCSV = document.getElementById("roleField").value;
+	
+	let names = nameCSV.split(',');
+	let roles = roleCSV.split(',');
+	
+	// leere Strings entfernen
+	names = names.filter(Boolean);
+	roles = roles.filter(Boolean);
+	
+	// abbrechen, wenn zuwenig Namen
+	if (names.length < roles.length) {
+		clearTable();
+		alert("Nicht genug Namen, um all diese Rollen zu verteilen!");
+		return;
+	}
+	
+	// auffüllen, wenn zuwenig Rollen
+	while (roles.length < names.length) {
+		roles.push("Dorfbewohner");
+	}
+	
+	shuffled = shuffle(names);
+	
+	let assignedRoles = [];
+	
+	for (i = 0; i < roles.length; i++) { 
+  		assignedRoles[i] = [roles[i], shuffled[i]];
+	}
+	
+	createTable(assignedRoles);
+}
+
+// Fisher-Yates (aka Knuth) Shuffle
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+function createTable(tableData) {
+	clearTable();
+  	let table = document.createElement('table');
+  	let tableBody = document.createElement('tbody');
+
+  	tableData.forEach(function(rowData) {
+    let row = document.createElement('tr');
+
+    rowData.forEach(function(cellData) {
+      let cell = document.createElement('td');
+      cell.appendChild(document.createTextNode(cellData));
+      row.appendChild(cell);
+    });
+
+    tableBody.appendChild(row);
+  });
+
+  table.appendChild(tableBody);
+  document.body.appendChild(table);
+}
+
+function clearTable() {
+	let tables= document.getElementsByTagName('table');
+	while (tables.length>0)
+    	tables[0].parentNode.removeChild(tables[0]);
+
+}
+
+</script>
 
 </body>
 </html>
-

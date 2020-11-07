@@ -85,12 +85,12 @@ function assignRoles() {
 		roles.push("Dorfbewohner");
 	}
 	
-	shuffled = shuffle(names);
+	shuffled = shuffle(roles);
 	
 	let assignedRoles = [];
 	
 	for (i = 0; i < roles.length; i++) { 
-  		assignedRoles[i] = [roles[i], shuffled[i]];
+  		assignedRoles[i] = [names[i], shuffled[i]];
 	}
 	
 	createTable(assignedRoles);
